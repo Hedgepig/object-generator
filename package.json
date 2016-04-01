@@ -1,0 +1,20 @@
+{
+  "name": "random",
+  "version": "0.0.1",
+  "description": "A PCG for JSON objects",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pcg",
+    "random",
+    "json"
+  ],
+  "author": "Matthew Laws",
+  "license": "MIT",
+  "dependencies": {
+    "chance": "^1.0.1",
+    "underscore": "^1.8.3"
+  }
+}
