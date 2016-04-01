@@ -6,8 +6,6 @@ depend upon one another.
 The best way to show what this means is by example.
 
 ```javascript
-var Generator = new require('../main.js').Generator();
-
 var beast = new Generator();
 
 beast.property('animalType', [], () => {
