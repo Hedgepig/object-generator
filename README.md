@@ -6,26 +6,31 @@ depend upon one another.
 The best way to show what this means is by example.
 
 ```javascript
-var beast = new Generator();
+var numbers = new Generator();
 
-beast.property('animalType', [], () => {
-    return chance.weighted(
-        ["reptilian", "mammal"], 
-        [5, 8]
-    );
+numbers.property('numberOne', [], () => {
+    return Math.random();
 });
 
-beast.property('dietType', ['animalType'],  (ctx) => {
-    let weights = [10, 8, 5, 3];
-    if (ctx.animalType == "reptilian") {
-        weights = [5, 7, 2, 10];
+numbers.property('numberTwo', ['numberOne'],  (ctx) => {
+    if (ctx['numberOne'] > 0.5) {
+        return 0;
+    } else {
+        return 1;
     }
-    return chance.weighted(
-        ["herbivore", "carnivore", "omnivore", "insectivore"], 
-        weights
-    );
 });
 
-console.log(beast.generate()); //=> { animalType: 'mammal', dietType: 'omnivore' }
-console.log(beast.generate()); //=> { animalType: 'reptilian', dietType: 'insectivore' }
+console.log(beast.generate()); //=> { numberOne: 0.33563215, numberTwo: 0 }
+console.log(beast.generate()); //=> { numberOne: 0.63401577, numberTwo: 1 }
 ```
+
+## Generator.prototype.property(id, dependencies, function)
+
+Adds a property to the generator
+
+* **id** - the unique id that will be used as the key in the output object
+* **dependencies** - list of ids that this property is dependend upon
+* **function** - the function used to generate the value for this property 
+  which will be given the following parameter
+    - **ctx** - the context variable containing all the properties specified 
+      by the dependencies array
