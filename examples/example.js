@@ -1,3 +1,5 @@
+'use strict';
+
 var Generator = new require('../main.js').Generator();
 
 var beast = new Generator();
