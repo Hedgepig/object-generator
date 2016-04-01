@@ -7,7 +7,7 @@ class Generator {
         this._props = {};
     }
     
-    property(id, deps, fn) {
+    property(id, deps, fn) {            //Add a property
         this._props[id] = {
             fn: fn,
             deps: deps
@@ -23,21 +23,23 @@ class Generator {
          ,  generated = {};
 
         failureAtCount = failureAtCount || 1000;
+
         while (unfinished) {
             _(unfulfilled).each( (propKey) => {
                 let prop = this._props[propKey];
-                let depsFulfilled = 
+                let depsFulfilled =                  //Check if all the dependancies have been fulfilled
                     _(prop.deps)
                         .difference(fulfilled)
                         .length == 0;
                 if (depsFulfilled) {
                     let ctx = _(prop.deps).chain()
                         .map( (dep) => [ dep, generated[dep] ] )
-                        .object();
-                    generated[propKey] = prop.fn(ctx);
-                    fulfilled.push(propKey);
-                    unfulfilled = _(unfulfilled).without(propKey);
-                    count = 0;
+                        .object()
+                        .value();
+                    generated[propKey] = prop.fn(ctx);              //The function is executed with the required variables in the context
+                    unfulfilled = _(unfulfilled).without(propKey);  //The property id is taken from the unfulfilled array
+                    fulfilled.push(propKey);                        //And put into the fulfilled array
+                    count = 0;                                      //Reset count as algorithm is still working
                 }
             });
 
