@@ -1,7 +1,6 @@
 'use strict';
 
-var chance = new require('chance').Chance()
- ,  _ = require('underscore');
+var _ = require('underscore');
 
 class Generator {
     constructor() {
@@ -16,15 +15,14 @@ class Generator {
     }
 
     generate(failureAtCount) {
-        failureAtCount = failureAtCount || 1000;
-
         var fulfilled = []
          ,  unfulfilled = _(this._props).keys()
          ,  numberOfProps  = unfulfilled.length
          ,  unfinished = true
-         ,  count = 0;
-         ,  generated = {}
+         ,  count = 0
+         ,  generated = {};
 
+        failureAtCount = failureAtCount || 1000;
         while (unfinished) {
             _(unfulfilled).each( (propKey) => {
                 let prop = this._props[propKey];
