@@ -28,5 +28,6 @@ beast.property('dietType', ['animalType'],  (ctx) => {
     );
 });
 
-console.log(beast.generate());
+console.log(beast.generate()); //=> { animalType: 'mammal', dietType: 'omnivore' }
+console.log(beast.generate()); //=> { animalType: 'reptilian', dietType: 'insectivore' }
 ```
